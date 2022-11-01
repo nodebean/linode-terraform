@@ -1,2 +1,3 @@
 .terraform/
 beanteam.tfvars
+*.tfstate
