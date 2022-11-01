@@ -20,9 +20,9 @@ module "object_storage" {
 
 # Linode LKE Cluster
 module "lke" {
-  source      = "./modules/lke"
-  label       = var.lke_label
-  k8s_version = var.lke_k8s_version
-  region      = var.lke_region
-  pools       = var.lke_pools
+ source      = "./modules/lke"
+ label       = var.lke_label
+ k8s_version = var.lke_k8s_version
+ region      = var.lke_region
+ pools       = var.lke_pools
 }
