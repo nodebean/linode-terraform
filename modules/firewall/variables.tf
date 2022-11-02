@@ -1,57 +1,15 @@
-# # Linode Variables
-variable "token" {
-  description = "The Linode Access Token"
-  type        = string
-}
-
-# Object Storage variables
-variable "tfv_bucket_region" {
-  description = "The Linode Object Storage Bucket's Region"
-  type        = string
-}
-
-variable "tfv_bucket_label" {
-  description = "The label of the Linode Object Storage Bucket."
-  type        = string
-}
-
-# LKE Variables
-variable "tfv_lke_label" {
-  description = "This Kubernetes cluster's unique label."
-  type        = string
-}
-
-variable "tfv_lke_k8s_version" {
-  description = "The desired Kubernetes version for this Kubernetes cluster in the format of major.minor (e.g. 1.21), and the latest supported patch version will be deployed."
-  type        = string
-}
-
-variable "tfv_lke_region" {
-  description = "This Kubernetes cluster's location"
-  type        = string
-}
-
-variable "tfv_lke_pools" {
-  description = "The Node Pool specifications for the Kubernetes cluster. At least one Node Pool is required"
-  type = list(object({
-    type  = string
-    count = number
-  }))
-}
-
-# Firewall Variables
-variable "tfv_fw_label" {
+variable "firewall_label" {
   description = "This Firewall's unique label."
   type        = string
 }
 
-variable "tfv_fw_disabled" {
+variable "firewall_disabled" {
   description = "If true, the Firewall's rules are not enforced (defaults to false)."
   type        = bool
   default     = false
 }
 
-variable "tfv_fw_inbound_rules" {
+variable "inbound_rules" {
   description = "A firewall rule that specifies what inbound network traffic is allowed."
   type = map(object({
     inbound_rule_label = string
@@ -63,13 +21,13 @@ variable "tfv_fw_inbound_rules" {
   }))
 }
 
-variable "tfv_fw_in_policy" {
+variable "default_inbound_policy" {
   description = "The default behavior for inbound traffic. This setting can be overridden by updating the inbound.action property of the Firewall Rule. (ACCEPT, DROP)"
   type        = string
   default     = "DROP"
 }
 
-variable "tfv_fw_outbound_rules" {
+variable "outbound_rules" {
   description = "A firewall rule that specifies what outbound network traffic is allowed."
   type = map(object({
     outbound_rule_label = string
@@ -81,8 +39,13 @@ variable "tfv_fw_outbound_rules" {
   }))
 }
 
-variable "tfv_fw_out_policy" {
+variable "default_outbound_policy" {
   description = "The default behavior for outbound traffic. This setting can be overridden by updating the outbound.action property for an individual Firewall Rule. (ACCEPT, DROP)"
   type        = string
   default     = "ACCEPT"
+}
+
+variable "target_linodes" {
+  description = "A list of IDs of Linodes this Firewall should govern it's network traffic for."
+  type        = list(string)
 }
