@@ -18,3 +18,7 @@ output "id" {
 output "pool" {
   value = linode_lke_cluster.beanteam_cluster.pool
 }
+
+output "node_ids" {
+  value = [for i in linode_lke_cluster.beanteam_cluster.pool[0].nodes : i.instance_id]
+}
